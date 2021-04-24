@@ -1,6 +1,6 @@
 import { Fragment } from "react";
 import {BrowserRouter as Router, Switch, Route} from "react-router-dom";
-import MainPage from "./MainPage";
+import MainPage from "./mainPage/MainPage";
 
 
 const App = () => {
@@ -8,7 +8,10 @@ const App = () => {
     <Fragment>
       <Router>
         <Switch>
-            <Route path="*">
+            <Route exact path="/">
+                <MainPage />
+            </Route>
+            <Route path="/:id">
                 <MainPage />
             </Route>
         </Switch>
