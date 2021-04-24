@@ -4,6 +4,8 @@ import InputField from "./InputField";
 import styles from './style.module.css';
 import ClientAPI from '../clientAPI/ClientAPI.js';
 import {useHistory, useLocation, useParams} from "react-router";
+import OwnerBox from "./OwnerBox";
+import RepoBox from "./RepoBox";
 
 //const $ = (id) => document.getElementById(id);
 
@@ -61,11 +63,12 @@ const MainPage = () => {
         }
         else
         {
+            data.sort((a,b)=>a.stargazers_count-b.stargazers_count)
             setOwnerAndRepos(data, data[0].owner);
         }
     }
     const errorGetRepos = (error) => {
-        console.log(error)
+
     }
     const afterRequestRepos = () => {
         setLoading(false);
@@ -99,22 +102,8 @@ const MainPage = () => {
                 </form>
             </div>
             <div id="result" className="result">
-                <div className="ownerInfo">
-                    <p>nazwa: owner.login, owner.avatar_url, owner.html_url</p>
-                </div>
-                <div className="contentResult">
-                    <div className="infoRepo">
-                        <h2>Nazwa: name</h2>
-                        <p>Pełna nazwa: full_name</p>
-                        <p>Opis: description</p>
-                        <p>url: html_url</p>
-                        <p>stworzony: created_at</p>
-                        <p>ostatnia aktualizajca: updated_at</p>
-                        <p>gwiazdki: stargazers_count</p>
-                        <p>Otwarte zadania: open_issues_count</p>
-                        <p>licencja: license.name</p>
-                    </div>
-                </div>
+                {owner!==null ? <OwnerBox owner={owner}/>:null}
+                {repos!==null ? <RepoBox repo={repos[0]}/>:null}
             </div>
         </div>
     )

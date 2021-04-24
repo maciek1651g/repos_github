@@ -14,6 +14,8 @@ class ClientAPI
         let xhr = new XMLHttpRequest();
         xhr.open(method.toUpperCase(), ClientAPI.baseUrl+url, true);
         xhr.setRequestHeader("Content-Type", "application/json");
+        xhr.setRequestHeader("Accept", "application/vnd.github.v3+json");
+        xhr.setRequestHeader("Authorization", "token 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");
         xhr.timeout = 5000;
 
         let response = null;
@@ -30,9 +32,14 @@ class ClientAPI
                 }
                 else
                 {
-                    let error = new ErrorClass(xhr.status, xhr.statusText);
-                    this.onError(error);
-                    response = null;
+                    if(xhr.status!==0)
+                    {
+                        response = xhr.responseText;
+                        response = this.jsonToData(response);
+                        let error = new ErrorClass(xhr.status, xhr.statusText, response.message);
+                        this.onError(error);
+                        response = null;
+                    }
                 }
             }
         }
