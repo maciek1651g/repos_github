@@ -1,7 +1,7 @@
 import styles from "./style.module.css";
 
 
-const OwnerBox = ({owner}) => {
+const OwnerBox = ({owner, reposCount}) => {
     return (
         <div className={styles.contentResult}>
             <div className={styles.ownerInfo}>
@@ -11,7 +11,8 @@ const OwnerBox = ({owner}) => {
                     </div>
                     <div className={styles.contentInfoOwnerRight}>
                         <h2 style={{marginLeft: "10px"}}>Właściciel repozytoriów: <span style={{color: "#43D7E2", fontSize: "30px"}}>{owner.login}</span></h2>
-                        <p>Link do platformy github: <a href={owner.html_url}>{owner.html_url}</a></p>
+                        <p><b>Link do platformy github:</b> <a href={owner.html_url}>{owner.html_url}</a></p>
+                        <p><b>Liczba repozytoriów:</b> {reposCount}</p>
                     </div>
                 </div>
             </div>

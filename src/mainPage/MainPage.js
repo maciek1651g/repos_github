@@ -42,7 +42,7 @@ const MainPage = () => {
         api.onSuccessFunction = successGetRepos;
         api.onErrorFunction = errorGetRepos;
         api.functionAfterRequest = afterRequestRepos;
-        api.getRepos(name);
+        api.getAllRepos(name);
     }
 
     const sendRequestUser = (name) => {
@@ -53,8 +53,6 @@ const MainPage = () => {
     }
 
     const setOwnerAndRepos = (repos, owner) => {
-        console.log(owner)
-        console.log(repos)
         setRepos(repos);
         setOwner(owner);
     }
@@ -137,7 +135,7 @@ const MainPage = () => {
             <div id="result" className="result">
                 {
                     owner !== null ? typeof(owner)==="object" ?
-                        <OwnerBox owner={owner}/> :
+                        <OwnerBox owner={owner} reposCount={repos.length}/> :
                         <p className={styles.pInfo}>{owner}</p>:
                     <p className={styles.pInfo}>Tutaj pojawią się informację o użytkowniku i jego repozytoriach</p>
                 }

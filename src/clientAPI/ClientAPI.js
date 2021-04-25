@@ -7,7 +7,6 @@ class ClientAPI
     onErrorFunction = null;
     onSuccessFunction = null;
     functionAfterRequest = null;
-    backgroundFunctionHandler = null;
 
     sendMessage (method, url, jsonData=null, headers = {})
     {
@@ -64,10 +63,6 @@ class ClientAPI
 
     onSuccess(response)
     {
-        if(this.backgroundFunctionHandler!==null)
-        {
-            this.backgroundFunctionHandler(response);
-        }
         if(this.onSuccessFunction!==null)
         {
             this.onSuccessFunction(response)
@@ -77,11 +72,6 @@ class ClientAPI
 
     onError(errorInfo)
     {
-        console.log(errorInfo)
-        if(this.backgroundFunctionHandler!==null)
-        {
-            this.backgroundFunctionHandler(errorInfo);
-        }
         if(this.onErrorFunction!==null)
         {
             this.onErrorFunction(errorInfo);
@@ -119,6 +109,31 @@ class ClientAPI
     getRepos(name, page=1, perPage=100)
     {
         this.sendMessage("GET","/users/"+name+"/repos?per_page="+perPage+"&page="+page);
+    }
+
+    getAllRepos(name)
+    {
+        this.getAllReposBackground(name, 1, [], this.functionAfterRequest, this.onSuccessFunction)
+    }
+
+    getAllReposBackground(name, page, response, after, success)
+    {
+        this.functionAfterRequest = null;
+
+        this.onSuccessFunction = (data) => {
+            response = [...response, ...data]
+            if(data.length!==100)
+            {
+                this.functionAfterRequest = after;
+                success(response)
+            }
+            else
+            {
+                this.getAllReposBackground(name, page+1,response,after,success)
+            }
+        }
+
+        this.getRepos(name, page, 100);
     }
 
     getUserInfo(name)
