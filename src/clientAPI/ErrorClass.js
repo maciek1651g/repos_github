@@ -24,7 +24,12 @@ class ErrorClass
         {
             case 404:
                 if(message==="Not Found") return "Nie znaleziono użytkownika.";
-                break;
+                else return message;
+            case 401:
+                if(message==="Bad credentials") return "Niepoprawna autoryzacja.";
+                else return message;
+            case 403:
+                return "Przekroczono limit 60 zapytań na godzinę, proszę spróbować później.";
             default:
                 return "Nie rozpoznany błąd."
         }

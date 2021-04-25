@@ -147,6 +147,15 @@
     width: 80%;
 }
 
+.contentInfoRepo
+{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    overflow:hidden;
+    overflow-x: auto;
+}
+
 .avatarOwner
 {
     width: 100px;
@@ -181,6 +190,48 @@
     text-align: center;
 }
 
+.pInfo
+{
+    font-size: 25px;
+    font-weight: bold;
+    text-align: center;
+    margin: 20px;
+}
+
+.dateAndStars
+{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.errorMessage
+{
+    background-color: #f44336;
+    min-width: 480px;
+    height: 50px;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    right: 0;
+    bottom: 100px;
+    border-radius: 5px;
+    box-shadow: 0 3px 5px -1px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-weight: 500;
+    color: white;
+    animation: showSlow 0.1s linear forwards;
+}
+
+@keyframes showSlow {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+}
+
 @media only screen and (max-width: 730px) {
     .contentInfoOwner
     {
@@ -190,5 +241,10 @@
     .contentInfoOwnerLeft, .contentInfoOwnerRight
     {
         width: 100%;
+    }
+
+    .dateAndStars
+    {
+        flex-direction: column;
     }
 }

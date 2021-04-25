@@ -6,6 +6,7 @@ import ClientAPI from '../clientAPI/ClientAPI.js';
 import {useHistory, useLocation, useParams} from "react-router";
 import OwnerBox from "./OwnerBox";
 import RepoBox from "./RepoBox";
+import ErrorMessage from "./ErrorMessage";
 
 //const $ = (id) => document.getElementById(id);
 
@@ -14,6 +15,7 @@ const MainPage = () => {
     const [userName, setUserName] = React.useState("");
     const [owner, setOwner] = React.useState(null);
     const [repos, setRepos] = React.useState(null);
+    const [errorMessage, setErrorMessage] = React.useState(null);
     const history = useHistory();
     const location = useLocation();
     const {id} = useParams();
@@ -59,16 +61,18 @@ const MainPage = () => {
     const successGetRepos = (data) => {
         if(data.length===0)
         {
-            sendRequestUser(userName);
+            sendRequestUser(id);
         }
         else
         {
-            data.sort((a,b)=>a.stargazers_count-b.stargazers_count)
+            data.sort((a,b)=>b.stargazers_count-a.stargazers_count)
             setOwnerAndRepos(data, data[0].owner);
         }
     }
     const errorGetRepos = (error) => {
-
+        setErrorMessage("Kod błędu: "+error.errorCode+". "+error.errorText);
+        setRepos(null);
+        setOwner("Nie znaleziono użytkownika.");
     }
     const afterRequestRepos = () => {
         setLoading(false);
@@ -95,6 +99,7 @@ const MainPage = () => {
     return (
         <div>
             {showLoading ? <LoadingScreen /> : null}
+            {errorMessage!==null ? <ErrorMessage message={errorMessage} setMessage={setErrorMessage}/> : null}
             <div className="form">
                 <form>
                     <InputField id="name" type="text" text="Nazwa użytkownika" value={userName} setValue={setUserName}/>
@@ -102,8 +107,18 @@ const MainPage = () => {
                 </form>
             </div>
             <div id="result" className="result">
-                {owner!==null ? <OwnerBox owner={owner}/>:null}
-                {repos!==null ? <RepoBox repo={repos[0]}/>:null}
+                {
+                    owner !== null ? typeof(owner)==="object" ?
+                        <OwnerBox owner={owner}/> :
+                        <p className={styles.pInfo}>{owner}</p>:
+                    <p className={styles.pInfo}>Tutaj pojawią się informację o użytkowniku i jego repozytoriach</p>
+                }
+                {
+                    repos !== null ? repos.length!==0 ?
+                        repos.map((repo,index)=><RepoBox key={index+1} index={index+1} repo={repo}/>)  :
+                        <p className={styles.pInfo}>Brak repozytoriów</p>
+                        : null
+                }
             </div>
         </div>
     )

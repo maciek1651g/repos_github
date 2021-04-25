@@ -15,7 +15,6 @@ class ClientAPI
         xhr.open(method.toUpperCase(), ClientAPI.baseUrl+url, true);
         xhr.setRequestHeader("Content-Type", "application/json");
         xhr.setRequestHeader("Accept", "application/vnd.github.v3+json");
-        xhr.setRequestHeader("Authorization", "token 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");
         xhr.timeout = 5000;
 
         let response = null;
