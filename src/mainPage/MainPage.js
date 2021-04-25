@@ -91,6 +91,8 @@ const MainPage = () => {
             if(userName!=="")
             {
                 setUserName("");
+                setRepos(null);
+                setOwner(null);
             }
         }
     }, [location]);
