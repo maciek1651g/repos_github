@@ -90,7 +90,7 @@
     background-color: #43D7E2;
 }
 
-.buttonStyle
+.buttonStyle, .returnTopButton
 {
     box-sizing: border-box;
     margin: 10px 0;
@@ -103,7 +103,7 @@
     font-weight: revert;
 }
 
-.buttonStyle:active, .buttonStyle:focus, .arrowButton:active, .arrowButton:focus
+.buttonStyle:active, .buttonStyle:focus, .arrowButton:active, .arrowButton:focus, .returnTopButton:focus
 {
     border: none;
     outline: none;
@@ -115,7 +115,7 @@
     box-shadow: 0 3px 15px 0 rgba(0,0,0,0.6);
 }
 
-.buttonStyle:active
+.buttonStyle:active, .returnTopButton:active
 {
     box-shadow: inset 0 0 8px 0 rgba(0,0,0,0.5);
 }
@@ -126,7 +126,7 @@
     flex-wrap: wrap;
     position: relative;
     width: 85%;
-    margin-bottom: 7px;
+    margin-bottom: 13px;
     background-color: #EBEBEB;
 }
 
@@ -227,10 +227,28 @@
     animation: showSlow 0.1s linear forwards;
 }
 
+.returnTopButton
+{
+    display: flex;
+    position: fixed;
+    align-items: center;
+    justify-content: center;
+    bottom: 90px;
+    transform: translateX(-50%);
+    width: 75px;
+    height: 75px;
+    z-index: 1;
+    background-color: #43D7E2;
+    border-radius: 20px;
+    animation: showSlow 0.1s linear forwards;
+}
+
 @keyframes showSlow {
     0% { opacity: 0; }
     100% { opacity: 1; }
 }
+
+
 
 @media only screen and (max-width: 730px) {
     .contentInfoOwner

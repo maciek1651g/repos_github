@@ -16,6 +16,7 @@ const MainPage = () => {
     const [owner, setOwner] = React.useState(null);
     const [repos, setRepos] = React.useState(null);
     const [errorMessage, setErrorMessage] = React.useState(null);
+    const [returnTopButton, setReturnTopButton] = React.useState(false);
     const history = useHistory();
     const location = useLocation();
     const {id} = useParams();
@@ -96,10 +97,37 @@ const MainPage = () => {
         }
     }, [location]);
 
+    React.useEffect(() => {
+        window.onscroll = () => {
+            if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+                if(returnTopButton===false)
+                {
+                    setReturnTopButton(true);
+                }
+            } else {
+                if(returnTopButton===true)
+                {
+                    setReturnTopButton(false);
+                }
+            }
+
+            //when we are at the bottom of the page
+            // if(window.scrollY + window.innerHeight >= document.body.offsetHeight)
+            // {
+            //
+            // }
+        }
+    });
+
+    const returnToTop = () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
     return (
         <div>
             {showLoading ? <LoadingScreen /> : null}
             {errorMessage!==null ? <ErrorMessage message={errorMessage} setMessage={setErrorMessage}/> : null}
+            {returnTopButton?<button className={styles.returnTopButton} onClick={returnToTop}>TOP</button>:null}
             <div className="form">
                 <form>
                     <InputField id="name" type="text" text="Nazwa użytkownika" value={userName} setValue={setUserName}/>

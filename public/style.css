@@ -9,6 +9,7 @@ body
 {
     display: flex;
     flex-direction: column;
+    position: relative;
     background-color: #F5F5F5;
     margin: 0 auto;
     max-width: 1000px;

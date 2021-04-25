@@ -116,9 +116,9 @@ class ClientAPI
     }
 
 
-    getRepos(name)
+    getRepos(name, page=1, perPage=100)
     {
-        this.sendMessage("GET","/users/"+name+"/repos");
+        this.sendMessage("GET","/users/"+name+"/repos?per_page="+perPage+"&page="+page);
     }
 
     getUserInfo(name)
