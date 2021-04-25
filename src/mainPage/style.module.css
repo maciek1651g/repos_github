@@ -10,12 +10,11 @@
     align-items: center;
     justify-content: center;
     background-color: rgba(0, 0, 0, 0.5);
-    -webkit-tap-highlight-color: transparent;
 }
 
 .loader {
-    border: 8px solid #f3f3f3; /* Light grey */
-    border-top: 8px solid #43D7E2; /* Blue */
+    border: 8px solid #f3f3f3;
+    border-top: 8px solid #43D7E2;
     border-radius: 50%;
     width: 60px;
     height: 60px;
@@ -100,7 +99,6 @@
     letter-spacing: 1px;
     border-radius: 5px;
     box-shadow: 0 3px 5px 0 rgba(0,0,0,0.4);
-    font-weight: revert;
 }
 
 .buttonStyle:active, .buttonStyle:focus, .arrowButton:active, .arrowButton:focus, .returnTopButton:focus
