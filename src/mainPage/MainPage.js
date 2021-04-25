@@ -31,7 +31,7 @@ const MainPage = () => {
             }
             else
             {
-                history.push("/"+userName);
+                history.push("/repos_github/"+userName);
             }
         }
     }

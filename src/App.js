@@ -8,10 +8,10 @@ const App = () => {
     <Fragment>
       <Router>
         <Switch>
-            <Route exact path="/">
+            <Route exact path="/repos_github/">
                 <MainPage />
             </Route>
-            <Route path="/:id">
+            <Route path="/repos_github/:id">
                 <MainPage />
             </Route>
         </Switch>
