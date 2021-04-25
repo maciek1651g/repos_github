@@ -2,7 +2,7 @@ Przeglądarka repozytoriów githuba
 
 Aplikacja jest dostępna pod adresem:
 https://maciek1651g-github-repos.herokuapp.com/
-
+(Pierwsze uruchomienie może być dłuższe, jest to związane z hostingiem na herokuapp)
 
 
 Lokalne uruchomienie:
