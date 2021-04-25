@@ -6,7 +6,6 @@ class ClientAPI
 
     onErrorFunction = null;
     onSuccessFunction = null;
-    functionAfterRequest = null;
 
     sendMessage (method, url, jsonData=null, headers = {})
     {
@@ -48,7 +47,7 @@ class ClientAPI
             this.onError(new ErrorClass(404, "Zatrzymano zapytanie z nieznanych przyczyn"))
         }
         xhr.onerror = (e) => {
-            console.log(e);
+            this.onError(new ErrorClass(404, "Brak Internetu."));
         }
 
         let headersKeys = Object.keys(headers);
@@ -67,7 +66,6 @@ class ClientAPI
         {
             this.onSuccessFunction(response)
         }
-        this.afterRequest();
     }
 
     onError(errorInfo)
@@ -75,15 +73,6 @@ class ClientAPI
         if(this.onErrorFunction!==null)
         {
             this.onErrorFunction(errorInfo);
-        }
-        this.afterRequest();
-    }
-
-    afterRequest()
-    {
-        if(this.functionAfterRequest!==null)
-        {
-            this.functionAfterRequest();
         }
     }
 
@@ -113,23 +102,21 @@ class ClientAPI
 
     getAllRepos(name)
     {
-        this.getAllReposBackground(name, 1, [], this.functionAfterRequest, this.onSuccessFunction)
+        this.getAllReposBackground(name, 1, [], this.onSuccessFunction)
     }
 
-    getAllReposBackground(name, page, response, after, success)
+    getAllReposBackground(name, page, response, success)
     {
-        this.functionAfterRequest = null;
-
         this.onSuccessFunction = (data) => {
             response = [...response, ...data]
             if(data.length!==100)
             {
-                this.functionAfterRequest = after;
-                success(response)
+                this.onSuccessFunction=success;
+                this.onSuccess(response)
             }
             else
             {
-                this.getAllReposBackground(name, page+1,response,after,success)
+                this.getAllReposBackground(name, page+1,response,success)
             }
         }
 

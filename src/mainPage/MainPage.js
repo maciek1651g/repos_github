@@ -41,7 +41,6 @@ const MainPage = () => {
         const api = new ClientAPI();
         api.onSuccessFunction = successGetRepos;
         api.onErrorFunction = errorGetRepos;
-        api.functionAfterRequest = afterRequestRepos;
         api.getAllRepos(name);
     }
 
@@ -55,6 +54,7 @@ const MainPage = () => {
     const setOwnerAndRepos = (repos, owner) => {
         setRepos(repos);
         setOwner(owner);
+        setLoading(false);
     }
 
     const successGetRepos = (data) => {
@@ -72,8 +72,6 @@ const MainPage = () => {
         setErrorMessage("Kod błędu: "+error.errorCode+". "+error.errorText);
         setRepos(null);
         setOwner("Nie znaleziono użytkownika.");
-    }
-    const afterRequestRepos = () => {
         setLoading(false);
     }
 
@@ -137,7 +135,7 @@ const MainPage = () => {
             <div id="result" className="result">
                 {
                     owner !== null ? typeof(owner)==="object" ?
-                        <OwnerBox owner={owner} reposCount={repos.length}/> :
+                        <OwnerBox owner={owner} reposCount={repos!==null?repos.length:0}/> :
                         <p className={styles.pInfo}>{owner}</p>:
                     <p className={styles.pInfo}>Tutaj pojawią się informację o użytkowniku i jego repozytoriach</p>
                 }
